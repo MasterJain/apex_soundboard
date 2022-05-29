@@ -17,7 +17,7 @@ A soundboard I made for one of my favorite game  Apex legends
 
 ## Screenshots
 
-![App Screenshot](https://github.com/MasterJain/apex_soundboard/blob/main/assets/images/Simulator%20Screen%20Shot%20-%20iPhone%2013%20-%202022-05-29%20at%2016.17.59.png)
+![App Screenshot](https://github.com/MasterJain/apex_soundboard/blob/main/assets/images/Simulator%20Screen%20Shot%20-%20iPhone%2013%20-%202022-05-29%20at%2016.17.59.png = 500x500)
 ![App Screenshot](https://github.com/MasterJain/apex_soundboard/blob/main/assets/images/Simulator%20Screen%20Shot%20-%20iPhone%2013%20-%202022-05-29%20at%2016.18.08.png)
 
 ## Acknowledgements
