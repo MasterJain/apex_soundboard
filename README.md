@@ -6,7 +6,7 @@
 
 # ![Logo](https://github.com/MasterJain/apex_soundboard/blob/main/assets/images/apexlogo.jpg)Apex Soundboard
 A soundboard I made for one of my favorite game  Apex legends
-Updated to Sound Null Safety and some optimisations
+\nUpdated to Sound Null Safety and some optimisations
 
 ## Features
 
