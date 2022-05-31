@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
+
 import 'package:share_extend/share_extend.dart';
 
 import 'package:http/http.dart' as http;
@@ -416,45 +416,4 @@ Future<dynamic> downloadmp3(String url) async {
   var bytes = request.bodyBytes;
   await file.writeAsBytes(bytes);
   print(file.path);
-}
-
-Future downloadFile(BuildContext context, String url, String filename) async {
-  await Permission.storage.request().then((_) async {
-    if (await Permission.storage.status == PermissionStatus.granted) {
-      startDownload(context, url, filename);
-    } else if (await Permission.storage.status == PermissionStatus.denied) {
-    } else if (await Permission.storage.status ==
-        PermissionStatus.permanentlyDenied) {
-      askOpenSettingsDialog(context);
-    }
-  });
-}
-
-askOpenSettingsDialog(BuildContext context) {
-  showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Grant Storage Permission to Download'),
-          content: const Text(
-              'You have to allow storage permission to download any wallpaper fro this app'),
-          contentTextStyle:
-              const TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
-          actions: [
-            TextButton(
-              child: const Text('Open Settins'),
-              onPressed: () async {
-                Navigator.pop(context);
-                await openAppSettings();
-              },
-            ),
-            TextButton(
-              child: const Text('Close'),
-              onPressed: () async {
-                Navigator.pop(context);
-              },
-            )
-          ],
-        );
-      });
 }

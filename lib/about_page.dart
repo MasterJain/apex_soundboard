@@ -229,14 +229,15 @@ class _MyAboutPageState extends State<MyAboutPage> {
       floatingActionButton: FloatingActionButton(
         heroTag: 'fab',
         child: const Icon(
-          EvaIcons.globe,
+          EvaIcons.github,
           size: 36.0,
         ),
         tooltip: 'View GitHub repo',
         foregroundColor: Colors.white,
-        backgroundColor: Colors.red[800],
+        backgroundColor: Colors.black,
         elevation: 5.0,
-        onPressed: () => launchURL('https://apexsounds.xyz/'),
+        onPressed: () =>
+            launchURL('https://github.com/MasterJain/apex_soundboard'),
       ),
     );
   }

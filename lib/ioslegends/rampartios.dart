@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:apex_soundboard/abouthelpers/downloadalert.dart';
-import 'package:apex_soundboard/main.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 import 'package:flutter/material.dart';
@@ -9,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:share_extend/share_extend.dart';
 
 import 'package:http/http.dart' as http;
@@ -322,38 +319,6 @@ class _RampartIOSState extends State<RampartIOS> {
   }
 }
 
-startDownload(BuildContext context, String url, String filename) async {
-  Directory? appDocDir = Platform.isAndroid
-      ? await getExternalStorageDirectory()
-      : await getApplicationSupportDirectory();
-  if (Platform.isAndroid) {
-    Directory(appDocDir!.path.split("Android")[0] + MyHomePage.appName)
-        .create();
-  }
-
-  String path = Platform.isIOS
-      ? appDocDir!.path + "/$filename.mp3"
-      : appDocDir!.path.split("Android")[0] +
-          "${MyHomePage.appName}/$filename.mp3";
-  print(path);
-  File file = File(path);
-  if (!await file.exists()) {
-    await file.create();
-  } else {
-    await file.delete();
-    await file.create();
-  }
-
-  showDialog(
-    barrierDismissible: false,
-    context: context,
-    builder: (context) => DownloadAlert(
-      url: url,
-      path: path,
-    ),
-  );
-}
-
 Future<dynamic> downloadmp3(String url) async {
   String dir = (await getApplicationDocumentsDirectory()).path;
   File file = File('$dir/apexsoun.aac');
@@ -363,45 +328,4 @@ Future<dynamic> downloadmp3(String url) async {
   var bytes = request.bodyBytes;
   await file.writeAsBytes(bytes);
   print(file.path);
-}
-
-Future downloadFile(BuildContext context, String url, String filename) async {
-  await Permission.storage.request().then((_) async {
-    if (await Permission.storage.status == PermissionStatus.granted) {
-      startDownload(context, url, filename);
-    } else if (await Permission.storage.status == PermissionStatus.denied) {
-    } else if (await Permission.storage.status ==
-        PermissionStatus.permanentlyDenied) {
-      askOpenSettingsDialog(context);
-    }
-  });
-}
-
-askOpenSettingsDialog(BuildContext context) {
-  showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Grant Storage Permission to Download'),
-          content: const Text(
-              'You have to allow storage permission to download any wallpaper fro this app'),
-          contentTextStyle:
-              const TextStyle(fontSize: 13, fontWeight: FontWeight.w400),
-          actions: [
-            TextButton(
-              child: const Text('Open Settins'),
-              onPressed: () async {
-                Navigator.pop(context);
-                await openAppSettings();
-              },
-            ),
-            TextButton(
-              child: const Text('Close'),
-              onPressed: () async {
-                Navigator.pop(context);
-              },
-            )
-          ],
-        );
-      });
 }

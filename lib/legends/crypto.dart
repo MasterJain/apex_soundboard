@@ -1,8 +1,7 @@
 import 'dart:io';
 
-import 'package:apex_soundboard/abouthelpers/downloadalert.dart';
-import 'package:apex_soundboard/main.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
 
@@ -314,12 +313,15 @@ class _CryptoState extends State<Crypto> {
                           icon: Icons.file_download,
                           onPressed: (context) async {
                             downloadFile(
-                                context, audio[index], quipnames[index]);
+                                context,
+                                audio[index],
+                                quipnames[index],
+                                '/storage/emulated/0/Download');
 
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(const SnackBar(
                               duration: Duration(seconds: 5),
-                              content: Text('Audio saved in ApexSounds folder'),
+                              content: Text('Audio saved in Downloadsfolder'),
                             ));
                           },
                         ),
@@ -364,16 +366,16 @@ class _CryptoState extends State<Crypto> {
                           backgroundColor: Colors.red[800]!,
                           icon: Icons.file_download,
                           onPressed: (context) async {
-                            //  downloadmp3(
-                            //   'https://firebasestorage.googleapis.com/v0/b/apexsounds-6711f.appspot.com/o/24179%20-%20diag_mp_wattson_bc_revivingPlayer_condCaustic_3p.wav?alt=media&token=57a1dffa-a245-4e71-ad25-b98050f8660c');
-
                             downloadFile(
-                                context, audio[index], quipnames[index]);
+                                context,
+                                audio[index],
+                                quipnames[index],
+                                '/storage/emulated/0/Download');
 
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(const SnackBar(
                               duration: Duration(seconds: 5),
-                              content: Text('Audio saved in ApexSounds folder'),
+                              content: Text('Audio saved in Downloads folder'),
                             ));
                           },
                         ),
@@ -389,36 +391,30 @@ class _CryptoState extends State<Crypto> {
   }
 }
 
-startDownload(BuildContext context, String url, String filename) async {
-  Directory? appDocDir = Platform.isAndroid
-      ? await getExternalStorageDirectory()
-      : await getApplicationSupportDirectory();
-  if (Platform.isAndroid) {
-    Directory(appDocDir!.path.split("Android")[0] + MyHomePage.appName)
-        .create();
+Future<String> downloadFile12(
+    BuildContext context, String url, String fileName, String dir) async {
+  HttpClient httpClient = new HttpClient();
+  File file;
+  String filePath = '/storage/emulated/0/Download';
+  String myUrl = url;
+
+  try {
+    myUrl = url + '/' + '$fileName.mp3';
+    var request = await httpClient.getUrl(Uri.parse(myUrl));
+    var response = await request.close();
+
+    if (response.statusCode == 200) {
+      var bytes = await consolidateHttpClientResponseBytes(response);
+      filePath = '$dir/$fileName.mp3';
+      file = File(filePath);
+      await file.writeAsBytes(bytes);
+    } else
+      filePath = 'Error code: ' + response.statusCode.toString();
+  } catch (ex) {
+    filePath = 'Can not fetch url';
   }
 
-  String path = Platform.isIOS
-      ? appDocDir!.path + "/$filename.mp3"
-      : appDocDir!.path.split("Android")[0] +
-          "${MyHomePage.appName}/$filename.mp3";
-  print(path);
-  File file = File(path);
-  if (!await file.exists()) {
-    await file.create();
-  } else {
-    await file.delete();
-    await file.create();
-  }
-
-  showDialog(
-    barrierDismissible: false,
-    context: context,
-    builder: (context) => DownloadAlert(
-      url: url,
-      path: path,
-    ),
-  );
+  return filePath;
 }
 
 Future<dynamic> downloadmp3(String url) async {
@@ -432,10 +428,12 @@ Future<dynamic> downloadmp3(String url) async {
   print(file.path);
 }
 
-Future downloadFile(BuildContext context, String url, String filename) async {
+Future downloadFile(
+    BuildContext context, String url, String fileName, String dir) async {
   await Permission.storage.request().then((_) async {
     if (await Permission.storage.status == PermissionStatus.granted) {
-      startDownload(context, url, filename);
+      // startDownload(context, url, filename);
+      downloadFile12(context, url, fileName, dir);
     } else if (await Permission.storage.status == PermissionStatus.denied) {
     } else if (await Permission.storage.status ==
         PermissionStatus.permanentlyDenied) {

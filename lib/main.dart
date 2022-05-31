@@ -81,7 +81,7 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
   static String appName = "Apex Sounds";
-  static String androidDownload = "Audio saved in ApexSounds folder";
+  static String androidDownload = "Audio saved in Downloadsfolder";
 
   static formatBytes(bytes, decimals) {
     if (bytes == 0) return 0.0;
@@ -102,6 +102,39 @@ class _MyHomePageState extends State<MyHomePage>
 
   String url =
       "https://vgmdownloads.com/soundtracks/apex-legends-2019/zqoxecihsr/01%20Apex%20Legends%20Main%20Theme.mp3";
+
+  bool _showBackToTopButton = false;
+
+  // scroll controller
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    _scrollController = ScrollController()
+      ..addListener(() {
+        setState(() {
+          if (_scrollController.offset >= 400) {
+            _showBackToTopButton = true; // show the back-to-top button
+          } else {
+            _showBackToTopButton = false; // hide the back-to-top button
+          }
+        });
+      });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose(); // dispose the controller
+    super.dispose();
+  }
+
+  // This function is triggered when the user presses the back-to-top button
+  void _scrollToTop() {
+    _scrollController.animateTo(0,
+        duration: const Duration(seconds: 3), curve: Curves.linear);
+  }
 
   ///   super.initState();
   //  scrollController =new ScrollController();
@@ -130,27 +163,6 @@ class _MyHomePageState extends State<MyHomePage>
     'Seer',
   ];
 
-  final List<String> _quips = [
-    '100 quips',
-    '96 quips',
-    '94 quips',
-    '88 quips',
-    '93 quips',
-    '90 quips',
-    '95 quips',
-    '94 quips',
-    '92 quips',
-    '96 quips',
-    '97 quips',
-    '94 quips',
-    '93 quips',
-    '95 quips',
-    '70 quips',
-    '69 quips',
-    '60 quips',
-    '62 quips',
-    '63 quips',
-  ];
   final List<String> _categoryImage = [
     'assets/images/wraith.png',
     'assets/images/bangalore.png',
@@ -178,6 +190,8 @@ class _MyHomePageState extends State<MyHomePage>
 
   @override
   Widget build(BuildContext context) {
+    final textScale = MediaQuery.of(context).textScaleFactor;
+    print(textScale);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -198,377 +212,375 @@ class _MyHomePageState extends State<MyHomePage>
         ],
         title: Text(
           widget.title,
-          style: const TextStyle(fontFamily: 'Raleway', fontSize: 16.0),
+          style: TextStyle(fontFamily: 'Raleway', fontSize: 16.0 * textScale),
         ),
         centerTitle: true,
       ),
-      body: Stack(children: <Widget>[
-        Center(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 19.0, vertical: 20.0),
-                  child: Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const <Widget>[
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 12.0),
-                          child: Image(
-                            image: AssetImage("assets/images/apexlogo.jpg"),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(0.0, 6.0, 0.0, 9.0),
-                          child: Text(
-                            "Hey Legends",
-                            style: TextStyle(
-                                fontFamily: 'Raleway',
-                                fontSize: 30.0,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                        Padding(
-                            padding: EdgeInsets.fromLTRB(0.0, 8.0, 0.0, 4.0),
-                            child: Text(
-                              "Welcome to Apex Legends Soundboard.",
-                              style: TextStyle(
-                                fontFamily: 'Raleway',
-                                fontSize: 24.0,
-                                color: Colors.black,
-                              ),
-                            )),
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(
-                            0,
-                            8,
-                            0,
-                            8,
-                          ),
-                          child: Text(
-                            "Slide left or right to share sounds with your friends",
-                            style: TextStyle(
-                                fontFamily: 'Raleway',
-                                fontSize: 18.0,
-                                color: Colors.black),
-                          ),
-                        ),
-                        Text(
-                          "New Voice Quips will be uploaded every new season",
-                          style: TextStyle(
-                              fontFamily: 'Raleway',
-                              fontSize: 14.0,
-                              color: Colors.black),
-                        ),
-                        Text(
-                          "Have Fun Stay Frosty",
-                          style: TextStyle(
-                              fontFamily: 'Raleway',
-                              fontSize: 14.0,
-                              color: Colors.black),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Column(
+      body: SingleChildScrollView(
+        controller: _scrollController,
+        // physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 19.0, vertical: 20.0),
+              child: Container(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const <Widget>[
+                  children: <Widget>[
                     Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 19.0, vertical: 1.0),
+                      padding: EdgeInsets.symmetric(vertical: 12.0),
+                      child: Image(
+                        image: AssetImage("assets/images/apexlogo.jpg"),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(0.0, 6.0, 0.0, 9.0),
                       child: Text(
-                        "Legends",
+                        "Hey Legends",
                         style: TextStyle(
                             fontFamily: 'Raleway',
-                            fontSize: 30.0,
+                            fontSize: 30.0 * textScale,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.fromLTRB(0.0, 6.0, 0.0, 4.0),
+                        child: Text(
+                          "Welcome to Apex Legends Soundboard.",
+                          style: TextStyle(
+                            fontFamily: 'Raleway',
+                            fontSize: 24.0 * textScale,
+                            color: Colors.black,
+                          ),
+                        )),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(
+                        0,
+                        8,
+                        0,
+                        8,
+                      ),
+                      child: Text(
+                        "Slide left or right to share sounds with your friends",
+                        style: TextStyle(
+                            fontFamily: 'Raleway',
+                            fontSize: 18.0 * textScale,
                             color: Colors.black),
                       ),
                     ),
+                    Text(
+                      "New Voice Quips will be uploaded every new season",
+                      style: TextStyle(
+                          fontFamily: 'Raleway',
+                          fontSize: 14.0,
+                          color: Colors.black),
+                    ),
+                    Text(
+                      "Have Fun Stay Frosty",
+                      style: TextStyle(
+                          fontFamily: 'Raleway',
+                          fontSize: 14.0,
+                          color: Colors.black),
+                    )
                   ],
                 ),
-                Container(
-                  height: 350.0,
-                  child: ListView.builder(
-                    itemCount: _category.length,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        child: Container(
-                          padding: const EdgeInsets.all(2),
-                          width: 250,
-                          child: Card(
-                            elevation: 10.0,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(_categoryImage[index]),
-                                  fit: BoxFit.cover,
-                                  //alignment: Alignment.bottomCenter,
-                                ),
-                              ),
-                              child: Container(
-                                padding: const EdgeInsets.all(1),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Text(_category[index],
-                                        style: const TextStyle(
-                                            fontFamily: 'Raleway',
-                                            fontSize: 28.0,
-                                            fontWeight: FontWeight.bold)),
-                                    Text(
-                                      _quips[index],
-                                      style: const TextStyle(
-                                          fontFamily: 'Raleway',
-                                          fontSize: 18.0),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        onTap: () {
-                          if (index == 0) {
-                            //analytics.setUserId(id);
-                            if (Platform.isIOS) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => WraithsIOS()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Wraiths()));
-                            }
-                          } else if (index == 1) {
-                            if (Platform.isIOS) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => BangaloreIOS()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Bangalore()));
-                            }
-                          } else if (index == 2) {
-                            if (Platform.isIOS) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LifelineIOS()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Lifeline()));
-                            }
-                          } else if (index == 3) {
-                            if (Platform.isIOS) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PathfinderIOS()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Pathfinder()));
-                            }
-                          } else if (index == 4) {
-                            if (Platform.isIOS) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MirageIOS()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Mirage()));
-                            }
-                          } else if (index == 5) {
-                            if (Platform.isIOS) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => BloodhoundIOS()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Bloodhound()));
-                            }
-                          } else if (index == 6) {
-                            if (Platform.isIOS) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => GibbyIOS()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Gibby()));
-                            }
-                          } else if (index == 7) {
-                            if (Platform.isIOS) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => CausticIOS()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Caustic()));
-                            }
-                          } else if (index == 8) {
-                            if (Platform.isIOS) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => OctaneIOS()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Octane()));
-                            }
-                          } else if (index == 9) {
-                            if (Platform.isIOS) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => WattsonIOS()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Wattson()));
-                            }
-                          } else if (index == 10) {
-                            if (Platform.isIOS) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => CryptoIOS()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Crypto()));
-                            }
-                          } else if (index == 11) {
-                            if (Platform.isIOS) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => RevenantIOS()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Revenant()));
-                            }
-                          } else if (index == 12) {
-                            if (Platform.isIOS) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LobaIOS()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Loba()));
-                            }
-                          } else if (index == 13) {
-                            if (Platform.isIOS) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => RampartIOS()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Rampart()));
-                            }
-                          } else if (index == 14) {
-                            if (Platform.isIOS) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HorizonIOS()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Horizon()));
-                            }
-                          } else if (index == 15) {
-                            if (Platform.isIOS) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => FuseIOS()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Fuse()));
-                            }
-                          } else if (index == 16) {
-                            if (Platform.isIOS) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ValkIOS()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Valk()));
-                            }
-                          } else if (index == 17) {
-                            if (Platform.isIOS) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SeerIOS()));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Seer()));
-                            }
-                          }
-                        },
-                      );
-
-                      // return LegendSelectionBox(item: items[index]);
-                    },
+              ),
+            ),
+            Column(
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 19.0, vertical: 0),
+                  child: Text(
+                    "Legends",
+                    style: TextStyle(
+                        fontFamily: 'Raleway',
+                        fontSize: 30.0 * textScale,
+                        color: Colors.black),
                   ),
                 ),
               ],
             ),
-          ),
+            Container(
+              height: 700,
+              child: GridView.builder(
+                gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.8,
+                ),
+                itemCount: _category.length,
+                scrollDirection: Axis.vertical,
+                physics: BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics()),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    child: Container(
+                      height: 1000,
+                      padding: const EdgeInsets.all(3),
+                      width: 250,
+                      child: Card(
+                        elevation: 10.0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)),
+                        child: SizedBox(
+                          // height: 25,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(_categoryImage[index]),
+                                fit: BoxFit.fill,
+                                alignment: Alignment.topCenter,
+                              ),
+                            ),
+                            child: Container(
+                              //padding: const EdgeInsets.all(1),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(_category[index],
+                                      style: TextStyle(
+                                          fontFamily: 'Raleway',
+                                          fontSize: 26.0 * textScale,
+                                          fontWeight: FontWeight.bold)),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    onTap: () {
+                      if (index == 0) {
+                        //analytics.setUserId(id);
+                        if (Platform.isIOS) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => WraithsIOS()));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Wraiths()));
+                        }
+                      } else if (index == 1) {
+                        if (Platform.isIOS) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => BangaloreIOS()));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Bangalore()));
+                        }
+                      } else if (index == 2) {
+                        if (Platform.isIOS) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LifelineIOS()));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Lifeline()));
+                        }
+                      } else if (index == 3) {
+                        if (Platform.isIOS) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PathfinderIOS()));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Pathfinder()));
+                        }
+                      } else if (index == 4) {
+                        if (Platform.isIOS) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MirageIOS()));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Mirage()));
+                        }
+                      } else if (index == 5) {
+                        if (Platform.isIOS) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => BloodhoundIOS()));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Bloodhound()));
+                        }
+                      } else if (index == 6) {
+                        if (Platform.isIOS) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => GibbyIOS()));
+                        } else {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Gibby()));
+                        }
+                      } else if (index == 7) {
+                        if (Platform.isIOS) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CausticIOS()));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Caustic()));
+                        }
+                      } else if (index == 8) {
+                        if (Platform.isIOS) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => OctaneIOS()));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Octane()));
+                        }
+                      } else if (index == 9) {
+                        if (Platform.isIOS) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => WattsonIOS()));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Wattson()));
+                        }
+                      } else if (index == 10) {
+                        if (Platform.isIOS) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CryptoIOS()));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Crypto()));
+                        }
+                      } else if (index == 11) {
+                        if (Platform.isIOS) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RevenantIOS()));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Revenant()));
+                        }
+                      } else if (index == 12) {
+                        if (Platform.isIOS) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LobaIOS()));
+                        } else {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Loba()));
+                        }
+                      } else if (index == 13) {
+                        if (Platform.isIOS) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RampartIOS()));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Rampart()));
+                        }
+                      } else if (index == 14) {
+                        if (Platform.isIOS) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HorizonIOS()));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Horizon()));
+                        }
+                      } else if (index == 15) {
+                        if (Platform.isIOS) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FuseIOS()));
+                        } else {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Fuse()));
+                        }
+                      } else if (index == 16) {
+                        if (Platform.isIOS) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ValkIOS()));
+                        } else {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Valk()));
+                        }
+                      } else if (index == 17) {
+                        if (Platform.isIOS) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SeerIOS()));
+                        } else {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Seer()));
+                        }
+                      }
+                    },
+                  );
+
+                  // return LegendSelectionBox(item: items[index]);
+                },
+              ),
+            ),
+          ],
         ),
-      ]),
+      ),
+      floatingActionButton: _showBackToTopButton == false
+          ? null
+          : FloatingActionButton(
+              onPressed: _scrollToTop,
+              child: const Icon(Icons.arrow_upward),
+            ),
     );
   }
 
