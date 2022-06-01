@@ -18,7 +18,7 @@ A soundboard I made for one of my favorite game  Apex legends Updated to Sound N
   <tr>
     <td>First Screen Page</td>
      <td>Voice Quips Page</td>
-     <td>Present day in purple and selected day in pink</td>
+     <td>Video (IOS App) -</td>
   </tr>
   <tr>
     <td><img src="https://raw.githubusercontent.com/MasterJain/apex_soundboard/main/assets/images/Simulator%20Screen%20Shot%20-%20iPhone%2013%20-%202022-05-31%20at%2023.00.05.png" width=270 height=480></td>
@@ -27,7 +27,7 @@ A soundboard I made for one of my favorite game  Apex legends Updated to Sound N
        <video width="270" height="480" 
         controls="controls"/> 
           
-        <source src="https://github.com/MasterJain/apex_soundboard/blob/main/apex.mp4" 
+        <source src="https://github.com/MasterJain/apex_soundboard/blob/main/apex.mp4?raw=true" 
             type="video/mp4"> 
     </video> </td>
   </tr>
