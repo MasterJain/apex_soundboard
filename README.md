@@ -36,8 +36,8 @@ A soundboard I made for one of my favorite game  Apex legends Updated to Sound N
 
 ## Ihr alle gebt meinem Leben einen Sinn.
 
-***For Emma❤️***
-***For Dad***
-***For Mr and Mrs Jaschniski***
+- ***For Emma❤️***
+- ***For Dad***
+- ***For Mr and Mrs Jaschniski***
 
 
