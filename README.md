@@ -24,17 +24,20 @@ A soundboard I made for one of my favorite game  Apex legends Updated to Sound N
     <td><img src="https://raw.githubusercontent.com/MasterJain/apex_soundboard/main/assets/images/Simulator%20Screen%20Shot%20-%20iPhone%2013%20-%202022-05-31%20at%2023.00.05.png" width=270 height=480></td>
     <td><img src="https://raw.githubusercontent.com/MasterJain/apex_soundboard/main/assets/images/Simulator%20Screen%20Shot%20-%20iPhone%2013%20-%202022-05-29%20at%2016.18.08.png" width=270 height=480></td>
     <td>
-https://user-images.githubusercontent.com/41005631/171324045-4c217759-2dea-4f96-b245-96a63940af06.mp4
+      <video src='https://user-images.githubusercontent.com/41005631/171324045-4c217759-2dea-4f96-b245-96a63940af06.mp4' width=270 height=480>
+
      </td>
   </tr>
  </table>
 
-## Acknowledgements
-
-- [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
-- [Awesome README](https://github.com/matiassingers/awesome-readme)
-- [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
 ## Appendix
 
 ***Voice Quips can be downloaded on iOS by using share feature***
+
+## Ihr alle gebt meinem Leben einen Sinn.
+
+***For Emma❤️***
+***For Dad***
+***For Mr and Mrs Jaschniski***
+
 
