@@ -27,8 +27,12 @@ A soundboard I made for one of my favorite game  Apex legends Updated to Sound N
        <video width="270" height="480" 
         controls="controls"/> 
           
-        <source src="https://github.com/MasterJain/apex_soundboard/blob/main/apex.mp4?raw=true" 
+        <source src="https://user-images.githubusercontent.com/41005631/171324045-4c217759-2dea-4f96-b245-96a63940af06.mp4" 
             type="video/mp4"> 
+
+//https://user-images.githubusercontent.com/41005631/171324045-4c217759-2dea-4f96-b245-96a63940af06.mp4
+
+
     </video> </td>
   </tr>
  </table>
